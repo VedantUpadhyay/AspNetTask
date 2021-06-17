@@ -1,0 +1,32 @@
+﻿@model List<Athlete>
+
+@{ 
+    ViewData["Title"] = "Add new Athlete";
+    int ViewTestId = (int)ViewBag.TestId;
+}
+
+<div class="text-center border p-lg-4 rounded-1">
+
+    <h3>ADD NEW ATHLETE</h3>
+
+
+    <form class="form-group" asp-action="addAthletePost" asp-route-TestId="@ViewTestId" method="post">
+        <label asp-for="@Model.FirstOrDefault().PlayerId"></label>
+
+        <select  asp-for="@Model.FirstOrDefault().PlayerId" class="form-select">
+            @foreach (var athlete in Model)
+            {
+                <option value="@athlete.PlayerId">@athlete.Name</option>
+            }
+        </select>
+
+        <div class="text-center">
+            <label for="athleteResult">Result</label>
+            <input id="athleteResult" required type="number" name="result" />
+        </div>
+
+        <input class="btn btn-success" type="submit" value="SAVE" />
+        <a class="btn btn-warning text-white" asp-action="TestDetails" asp-route-id="@ViewTestId">Cancel</a>
+    </form>
+</div>
+

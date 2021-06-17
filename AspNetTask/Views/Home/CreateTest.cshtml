@@ -1,0 +1,50 @@
+﻿@model Test
+
+@{ 
+    ViewData["Title"] = "Create Test";
+}
+
+<div class="text-center">
+    <form method="post" asp-action="CreateTestPost" id="CreateTestForm" class="border border-light p-5">
+
+        <p class="h4 mb-4 text-center">Create Test</p>
+
+        <select asp-for="TestType" class="browser-default custom-select mb-4" id="select">
+            <option value="" disabled="" selected="">Choose your option</option>
+            @foreach (var item in Enum.GetValues(typeof(TestType)))
+            {
+        <option value="@item.ToString()">@item.ToString()</option>
+            }
+        </select>
+
+        <label for="textInput">Date</label>
+        <input asp-for="DateAM" type="date" id="dateInput" class="form-control mb-4" >
+
+        <button class="btn btn-info btn-block my-4" type="submit">Create</button>
+        <a asp-action="Index" class="text-white btn btn-warning btn-block my-4">Cancel</a>
+    </form>
+
+</div>
+
+@section Scripts {
+    <script defer>
+
+        function formatDate(date) {
+            var d = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+
+            if (month.length < 2)
+                month = '0' + month;
+            if (day.length < 2)
+                day = '0' + day;
+
+            return [year, month, day].join('-');
+        }
+
+        $().ready(() => {
+            $("#dateInput").val(formatDate(new Date()));
+        });
+    </script>
+}

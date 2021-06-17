@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Test>
+
+@{
+    ViewData["Title"] = "Home Page";
+    string sqlError = (string)ViewBag.Error;
+}
+
+<div class="text-center">
+    @if (!string.IsNullOrEmpty(sqlError))
+    {
+        <h3>@sqlError</h3>
+    }
+    <div id="ShowTestsArea">
+        <a id="createBtn" class="btn btn-primary" asp-action="CreateTest">CREATE NEW TEST</a>
+        <table id="tests" class="table table-hover table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <!--<th>ID</th>-->
+                    <th>Date</th>
+                    <th>Number of Participants</th>
+                    <th>Test Type</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.DateAM.ToString("dd-MM-yyyy")
+                        </td>
+
+                        <td>
+                            @item.NumberOfParticipants
+                        </td>
+
+                        <td>
+                            @item.TestType
+                        </td>
+
+                        <td class="action-flex">
+                            <a asp-action="TestDetails" asp-route-id="@item.TestId" asp-route-TestType="@item.TestType" class="fas fa-edit"></a>
+                            <!--<a class="trash-icon fas fa-trash-alt"></a>-->
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
